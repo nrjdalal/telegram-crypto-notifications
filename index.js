@@ -95,7 +95,7 @@ const na53Nq = async (pair, volume = 0) => {
 	}
 }
 
-cron.schedule('*/5 * * * *', () => {
+cron.schedule('*/15 * * * *', () => {
 	setTimeout(() => {
 		na53Nq('USDT')
 	}, 1000)
