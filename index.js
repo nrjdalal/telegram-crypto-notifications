@@ -5,6 +5,7 @@ app.get('/', (req, res) => {
 	res.send('The app is on!')
 })
 
+const config = require('platformsh-config').config()
 app.listen(config.port)
 
 const axios = require('axios')
