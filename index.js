@@ -8,6 +8,8 @@ app.get('/', (req, res) => {
 const config = require('platformsh-config').config()
 app.listen(config.port)
 
+// only the code below matters
+
 const axios = require('axios')
 const cron = require('node-cron')
 const tulind = require('tulind')
