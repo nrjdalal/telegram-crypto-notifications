@@ -3,10 +3,10 @@ const cron = require('node-cron')
 const tulind = require('tulind')
 
 const na53Nq = async (pair, volume = 0) => {
-	axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
-		chat_id: '@na53Nq',
-		text: new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Calcutta' }),
-	})
+	// axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
+	// 	chat_id: '@na53Nq',
+	// 	text: new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Calcutta' }),
+	// })
 
 	const res = await axios.get('https://api.binance.com/api/v3/ticker/24hr')
 
@@ -70,22 +70,20 @@ const na53Nq = async (pair, volume = 0) => {
 
 		if (red[0] > green[0] && red[1] < green[1]) {
 			const status = `${element.symbol} ~ LONG`
-			console.log('----- ' + status + ' -----')
+
 			axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
 				chat_id: '@na53Nq',
 				text: status + ' ~ ' + _close[_close.length - 1],
 			})
-			console.log(red[0] + ' > ' + green[0] + ' / ' + red[1] + ' < ' + green[1])
 		}
 
 		if (red[0] < green[0] && red[1] > green[1]) {
 			const status = `${element.symbol} ~ SHORT`
-			console.log('----- ' + status + ' -----')
+
 			axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
 				chat_id: '@na53Nq',
 				text: status + ' ~ ' + _close[_close.length - 1],
 			})
-			console.log(red[0] + ' < ' + green[0] + ' / ' + red[1] + ' > ' + green[1])
 		}
 	}
 }
