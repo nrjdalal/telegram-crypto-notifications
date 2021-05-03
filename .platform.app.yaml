@@ -12,7 +12,7 @@ web:
 
 disk: 512
 
-# mounts:
-#   run:
-#     source: local
-#     source_path: run
+mounts:
+  run:
+    source: local
+    source_path: run
