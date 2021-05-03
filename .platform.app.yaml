@@ -4,11 +4,11 @@ type: 'nodejs:14'
 
 dependencies:
   nodejs:
-    pm2: "^4.5.6"
+    pm2: '^4.5.6'
 
 web:
   commands:
-    start: "PM2_HOME=/app/run pm2 start index.js --no-daemon"
+    start: 'PM2_HOME=/app/run pm2 start index.js --no-daemon'
 
 disk: 512
 
