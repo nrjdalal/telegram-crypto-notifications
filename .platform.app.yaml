@@ -23,9 +23,9 @@ mounts:
 
 dependencies:
   nodejs:
-    axios: "^0.21.1",
-    node-cron: "^3.0.0",
-    pm2: "^4.5.0",
+    axios: "^0.21.1"
+    node-cron: "^3.0.0"
+    pm2: "^4.5.0"
 
 web:
   commands:
