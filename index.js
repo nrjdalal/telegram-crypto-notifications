@@ -77,7 +77,7 @@ const na53Nq = async (pair, volume = 0) => {
 			})
 			console.log(red[0] + ' > ' + green[0] + ' / ' + red[1] + ' < ' + green[1])
 		}
-		
+
 		if (red[0] < green[0] && red[1] > green[1]) {
 			const status = `${element.symbol} ~ SHORT`
 			console.log('----- ' + status + ' -----')
