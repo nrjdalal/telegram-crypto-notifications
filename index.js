@@ -3,10 +3,10 @@ const cron = require('node-cron')
 const tulind = require('tulind')
 
 const na53Nq = async (pair, volume = 0) => {
-	// axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
-	// 	chat_id: '@na53Nq',
-	// 	text: new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Calcutta' }),
-	// })
+	axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
+		chat_id: '@na53Nq',
+		text: new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Calcutta' }),
+	})
 
 	const res = await axios.get('https://api.binance.com/api/v3/ticker/24hr')
 
@@ -23,8 +23,15 @@ const na53Nq = async (pair, volume = 0) => {
 
 	symbols = resData.sort((a, b) => b.volume - a.volume)
 
+	let count = 0
+
 	for (element of symbols) {
-		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=5m&limit=1000`)
+		axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
+			chat_id: '@na53Nq',
+			text: count++,
+		})
+
+		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=15m&limit=100`)
 
 		const _volume = []
 		for (values of res.data) {
@@ -53,13 +60,13 @@ const na53Nq = async (pair, volume = 0) => {
 
 		Object.assign(element, { volume: _volume, open: _open, high: _high, low: _low, close: _close })
 
-		await tulind.indicators.ema.indicator([element.close], [576], (err, results) => {
+		await tulind.indicators.ema.indicator([element.close], [192], (err, results) => {
 			const _ema960 = results[0]
 
 			Object.assign(element, { ema960: _ema960 })
 		})
 
-		await tulind.indicators.ema.indicator([element.close], [288], (err, results) => {
+		await tulind.indicators.ema.indicator([element.close], [96], (err, results) => {
 			const _ema480 = results[0]
 
 			Object.assign(element, { ema480: _ema480 })
