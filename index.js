@@ -35,7 +35,7 @@ const na53Nq = async (pair, volume = 0) => {
 	for (element of symbols) {
 		++count
 
-		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=15m&limit=200`)
+		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=3m&limit=1000`)
 
 		const _volume = []
 		for (values of res.data) {
@@ -64,20 +64,29 @@ const na53Nq = async (pair, volume = 0) => {
 
 		Object.assign(element, { volume: _volume, open: _open, high: _high, low: _low, close: _close })
 
-		await tulind.indicators.ema.indicator([element.close], [192], (err, results) => {
-			const _ema960 = results[0]
+		// await tulind.indicators.ema.indicator([element.close], [192], (err, results) => {
+		// 	const _ema960 = results[0]
 
-			Object.assign(element, { ema960: _ema960 })
-		})
+		// 	Object.assign(element, { ema960: _ema960 })
+		// })
 
-		await tulind.indicators.ema.indicator([element.close], [96], (err, results) => {
-			const _ema480 = results[0]
+		// await tulind.indicators.ema.indicator([element.close], [96], (err, results) => {
+		// 	const _ema480 = results[0]
 
-			Object.assign(element, { ema480: _ema480 })
-		})
+		// 	Object.assign(element, { ema480: _ema480 })
+		// })
 
-		const red = element.ema960.slice(-3)
-		const green = element.ema480.slice(-3)
+		// const red = element.ema960.slice(-3)
+		// const green = element.ema480.slice(-3)
+
+		const redEMA = require('technicalindicators').EMA
+		const redData = redEMA.calculate({ period: 960, values: element.close })
+
+		const greenEMA = require('technicalindicators').EMA
+		const greenData = greenEMA.calculate({ period: 480, values: element.close })
+
+		const red = redData.slice(-3)
+		const green = greenData.slice(-3)
 
 		if (red[0] > green[0] && red[1] < green[1]) {
 			const status = `${count} ${element.symbol} ~ LONG`
@@ -99,7 +108,7 @@ const na53Nq = async (pair, volume = 0) => {
 	}
 }
 
-cron.schedule('*/15 * * * *', () => {
+cron.schedule('*/3 * * * *', () => {
 	axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
 		chat_id: '@na53Nq',
 		text: 'All systems active ~ ' + new Date().toLocaleTimeString('en-US'),
