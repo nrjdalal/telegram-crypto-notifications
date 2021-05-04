@@ -35,7 +35,7 @@ const na53Nq = async (pair, volume = 0) => {
 	for (element of symbols) {
 		++count
 
-		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=15m&limit=100`)
+		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=15m&limit=200`)
 
 		const _volume = []
 		for (values of res.data) {
