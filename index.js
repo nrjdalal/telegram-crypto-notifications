@@ -35,7 +35,7 @@ const na53Nq = async (pair, volume = 0) => {
 	for (element of symbols) {
 		++count
 
-		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=3m&limit=1000`)
+		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=15m&limit=200`)
 
 		const _volume = []
 		for (values of res.data) {
@@ -80,10 +80,10 @@ const na53Nq = async (pair, volume = 0) => {
 		// const green = element.ema480.slice(-3)
 
 		const redEMA = require('technicalindicators').EMA
-		const redData = redEMA.calculate({ period: 960, values: element.close })
+		const redData = redEMA.calculate({ period: 192, values: element.close })
 
 		const greenEMA = require('technicalindicators').EMA
-		const greenData = greenEMA.calculate({ period: 480, values: element.close })
+		const greenData = greenEMA.calculate({ period: 96, values: element.close })
 
 		const red = redData.slice(-3)
 		const green = greenData.slice(-3)
@@ -108,7 +108,7 @@ const na53Nq = async (pair, volume = 0) => {
 	}
 }
 
-cron.schedule('*/3 * * * *', () => {
+cron.schedule('*/15 * * * *', () => {
 	setTimeout(() => {
 		na53Nq('USDT')
 	}, 7000)
