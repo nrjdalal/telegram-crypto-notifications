@@ -30,6 +30,8 @@ const na53Nq = async (pair, volume = 0) => {
 
 	symbols = resData.sort((a, b) => b.volume - a.volume)
 
+	let count = 0
+
 	for (element of symbols) {
 		axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
 			chat_id: '@na53Nq',
