@@ -108,7 +108,7 @@ const na53Nq = async (pair, volume = 0) => {
 cron.schedule('*/15 * * * *', () => {
 	axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
 		chat_id: '@na53Nq',
-		text: 'All systems active',
+		text: 'All systems active ~ ' + new Date().toLocaleTimeString('en-US'),
 	})
 
 	setTimeout(() => {
