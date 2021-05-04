@@ -12,7 +12,7 @@ app.listen(config.port)
 
 const axios = require('axios')
 const cron = require('node-cron')
-const tulind = require('tulind')
+// const tulind = require('tulind')
 
 const na53Nq = async (pair, volume = 0) => {
 	const res = await axios.get('https://api.binance.com/api/v3/ticker/24hr')
@@ -114,12 +114,9 @@ cron.schedule('*/3 * * * *', () => {
 	}, 7000)
 })
 
-cron.schedule('*/30 * * * *', () => {
-	axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
-		chat_id: '@na53Nq',
-		text: 'All systems active ~ ' + new Date().toLocaleTimeString('en-US'),
-	})
-})
-
-// const haha = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-// console.log(haha.slice(-2))
+// cron.schedule('*/30 * * * *', () => {
+// 	axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
+// 		chat_id: '@na53Nq',
+// 		text: 'All systems active ~ ' + new Date().toLocaleTimeString('en-US'),
+// 	})
+// })
