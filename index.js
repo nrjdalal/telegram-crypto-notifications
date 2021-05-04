@@ -80,13 +80,13 @@ const na53Nq = async (pair, volume = 0) => {
 		// const green = element.ema480.slice(-3)
 
 		const redEMA = require('technicalindicators').EMA
-		const redData = redEMA.calculate({ period: 960, values: element.close })
+		const redData = redEMA.calculate({ period: 960, values: element.close.slice(0, -1) })
 
 		const greenEMA = require('technicalindicators').EMA
-		const greenData = greenEMA.calculate({ period: 480, values: element.close })
+		const greenData = greenEMA.calculate({ period: 480, values: element.close.slice(0, -1) })
 
-		const red = redData.slice(-3)
-		const green = greenData.slice(-3)
+		const red = redData.slice(-2)
+		const green = greenData.slice(-2)
 
 		if (red[0] > green[0] && red[1] < green[1]) {
 			const status = `${count} ${element.symbol} ~ LONG`
@@ -120,3 +120,6 @@ cron.schedule('*/30 * * * *', () => {
 		text: 'All systems active ~ ' + new Date().toLocaleTimeString('en-US'),
 	})
 })
+
+// const haha = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+// console.log(haha.slice(-2))
