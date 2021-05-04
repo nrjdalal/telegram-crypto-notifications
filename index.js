@@ -35,7 +35,7 @@ const na53Nq = async (pair, volume = 0) => {
 	for (element of symbols) {
 		++count
 
-		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=30m&limit=100`)
+		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=3m&limit=1000`)
 
 		const _volume = []
 		for (values of res.data) {
@@ -80,10 +80,10 @@ const na53Nq = async (pair, volume = 0) => {
 		// const green = element.ema480.slice(-3)
 
 		const redEMA = require('technicalindicators').EMA
-		const redData = redEMA.calculate({ period: 96, values: element.close })
+		const redData = redEMA.calculate({ period: 960, values: element.close })
 
 		const greenEMA = require('technicalindicators').EMA
-		const greenData = greenEMA.calculate({ period: 48, values: element.close })
+		const greenData = greenEMA.calculate({ period: 480, values: element.close })
 
 		const red = redData.slice(-3)
 		const green = greenData.slice(-3)
@@ -108,13 +108,13 @@ const na53Nq = async (pair, volume = 0) => {
 	}
 }
 
-cron.schedule('*/30 * * * *', () => {
+cron.schedule('*/3 * * * *', () => {
 	setTimeout(() => {
 		na53Nq('USDT')
 	}, 7000)
 })
 
-cron.schedule('0 * * * *', () => {
+cron.schedule('*/30 * * * *', () => {
 	axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
 		chat_id: '@na53Nq',
 		text: 'All systems active ~ ' + new Date().toLocaleTimeString('en-US'),
