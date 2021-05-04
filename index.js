@@ -33,11 +33,6 @@ const na53Nq = async (pair, volume = 0) => {
 	let count = 0
 
 	for (element of symbols) {
-		axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
-			chat_id: '@na53Nq',
-			text: count++,
-		})
-
 		const res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${element.symbol}&interval=15m&limit=100`)
 
 		const _volume = []
