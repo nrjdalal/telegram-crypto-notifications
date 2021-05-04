@@ -106,14 +106,12 @@ const na53Nq = async (pair, volume = 0) => {
 }
 
 cron.schedule('*/15 * * * *', () => {
-	setTimeout(() => {
-		na53Nq('USDT')
-	}, 7000)
-})
-
-cron.schedule('0 */4 * * *', () => {
 	axios.post('https://api.telegram.org/bot1756916114:AAHutD0mn_OWLFyX6J43deLG0RY-hNLMjL8/sendMessage', {
 		chat_id: '@na53Nq',
 		text: 'All systems active',
 	})
+
+	setTimeout(() => {
+		na53Nq('USDT')
+	}, 7000)
 })
